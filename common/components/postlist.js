@@ -19,7 +19,6 @@ export class PostList extends Component {
     let dataSource = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
-    console.log('props', this.props);
     this.state = {
       dataSource: dataSource.cloneWithRows([]),
       dsObj: dataSource,
@@ -50,7 +49,6 @@ export class PostList extends Component {
   }
 
   componentDidMount() {
-    console.log('what is the state', this.state);
     currentTime = Date.now();
     this._genRows();
   }

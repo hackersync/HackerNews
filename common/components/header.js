@@ -6,6 +6,7 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
+  TouchableHighlight,
   View,
 } from 'react-native';
 
@@ -13,40 +14,46 @@ export class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      width: this.props.windowWidth,
+      headers: ['top', 'new', 'comments', 'show', 'ask', 'jobs'],
+      selected: 'top',
     }
+  }
+
+  _handleSelection(header) {
+    console.log('switch to', header);
+    this.setState({
+      selected: header,
+    });
+  }
+
+  _renderHeaders() {
+    const headers = this.state.headers;
+    let headerElements = [];
+    headers.forEach(header => {
+      let element = (
+        <TouchableHighlight key={header} onPress={this._handleSelection.bind(this, header)}>
+          <Text
+            style={[
+              styles.carouselText,
+              header === this.state.selected ? styles.selected : {}]}>
+            {header}
+          </Text>
+        </TouchableHighlight>);
+      headerElements.push(element);
+    });
+    return headerElements;
   }
 
   render() {
     return (
-      <View style={[styles.header, {width: this.state.width}]}>
-        <View style={[styles.title, {width: this.state.width}]}>
+      <View style={[styles.header, {width: this.props.windowWidth}]}>
+        <View style={[styles.title, {width: this.props.windowWidth}]}>
           <Text style={styles.headerText}>
             Hacker News
           </Text>
         </View>
-        <View style={[styles.carousel, {width: this.state.width}]}>
-          <Text style={[styles.carouselText, styles.selected]}>
-            top
-          </Text>
-          <Text style={styles.carouselText}>
-            new
-          </Text>
-          <Text style={styles.carouselText}>
-            threads
-          </Text>
-          <Text style={styles.carouselText}>
-            comments
-          </Text>
-          <Text style={styles.carouselText}>
-            show
-          </Text>
-          <Text style={styles.carouselText}>
-            ask
-          </Text>
-          <Text style={styles.carouselText}>
-            jobs
-          </Text>
+        <View style={[styles.carousel, {width: this.props.windowWidth}]}>
+          {this._renderHeaders()}
         </View>
       </View>
     );

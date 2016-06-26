@@ -16,7 +16,6 @@ export class Homepage extends Component {
   constructor(props) {
     super(props);
     let {height, width} = Dimensions.get('window');
-    console.log('height/width', height, width);
     this.state = {
       height: height,
       width: width,
@@ -26,12 +25,8 @@ export class Homepage extends Component {
   render() {
     return (
       <View>
-        <PostList
-          windowHeight={this.state.height}
-        />
-        <Header
-          windowWidth={this.state.width}
-        />
+        <PostList windowHeight={this.state.height}/>
+        <Header windowWidth={this.state.width}/>
       </View>
     );
   }
