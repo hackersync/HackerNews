@@ -1,7 +1,7 @@
 HackerSync
 ==========
 
-A cross-platform Hacker News client written by Kevin He and Alex Dao. This is a project just for fun and personal use.
+A cross-platform Hacker News client written by Kevin He and Alex Dao. This is a project to learn and experiment, and primarily for personal use.
 
 ### Frameworks / Libraries
 * [React Native](https://facebook.github.io/react-native/)
