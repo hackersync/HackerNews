@@ -18,7 +18,6 @@ export class Post extends Component {
     let rowData = this.props.data;
     let currentTime = this.props.currentTime;
     let timeAgo = Time.getTimeAgo(currentTime, rowData.time*1000);
-    console.log('timeago', timeAgo);
 
     this.state = {
       data: rowData,

@@ -43,21 +43,12 @@ export class PostList extends Component {
   }
 
   async _genRows(storyType) {
-    DataFetch.fetchStories(storyType)
-      .then(response => {
-        /**let allItems = Promise.all(response);
-        allItems.then(stories => {
-          this.setState({
-            dataSource: this.state.dsObj.cloneWithRows(stories),
-            loading: false,
-          });
-        });*/
-        this.fetchItems(response);
-      });
+    DataFetch.fetchStories(storyType).then(response => {
+      this.fetchItems(response);
+    });
   }
 
-  updateState(items) {
-    console.log('items', items);
+  updateList(items) {
     this.setState({
       dataSource: this.state.dsObj.cloneWithRows(items),
       loading: false,
@@ -68,17 +59,14 @@ export class PostList extends Component {
     this.itemsRef.child(id).once('value', snapshot => {
       itemCounter++;
       itemList.push(snapshot.val());
-      console.log(itemCounter, length);
       if(itemCounter >= length){
-        console.log('called');
-        this.updateState(itemList);
+        this.updateList(itemList);
       }
     })
   }
 
   fetchItems(ids) {
-    console.log("entered");
-    var items = []
+    var items = [];
     for(var i = 0; i < ids.length; i++){
       var id = ids[i];
       this.fetchItem(id, ids.length);
@@ -86,6 +74,7 @@ export class PostList extends Component {
   }
 
   componentDidMount() {
+    currentTime = Date.now();
     this._genRows('top');
   }
 
