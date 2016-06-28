@@ -13,11 +13,14 @@ import {
   View,
 } from 'react-native';
 
+import Firebase from 'firebase';
+let FirebaseUrl = new Firebase('hacker-news.firebaseio.com/v0')
+
+
 let currentTime;
 export class PostList extends Component {
   constructor(props) {
     super(props);
-
     let dataSource = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
@@ -30,6 +33,8 @@ export class PostList extends Component {
     };
 
     this._renderRow = this._renderRow.bind(this);
+    this.fetchItem = this.fetchItem.bind(this);
+    this.itemsRef = FirebaseUrl.child('item/');
   }
 
   static populateList(storyType) {
@@ -37,28 +42,46 @@ export class PostList extends Component {
   }
 
   async _genRows(storyType) {
-    let counter = 0;
-    let interval = setInterval(() => {
-      counter++;
-    }, 1);
     DataFetch.fetchStories(storyType)
       .then(response => {
-        let allItems = Promise.all(response);
+        /**let allItems = Promise.all(response);
         allItems.then(stories => {
-          // console.log(stories);
-          console.log('retrieval time:', counter);
-          clearInterval(interval);
-
           this.setState({
             dataSource: this.state.dsObj.cloneWithRows(stories),
             loading: false,
           });
-        });
+        });*/
+        this.fetchItems(response, setState);
+        function setState(items) {
+          this.setState({
+            dataSource: this.state.dsObj.cloneWithRows(items),
+            loading: false,
+          });
+        }
       });
   }
 
+  fetchItem(id, cb) {
+    this.itemsRef.child(id).once('value', function(snapshot) {
+      cb(snapshot.val())
+    })
+  }
+
+  fetchItems(ids, cb) {
+    console.log("entered");
+    var items = []
+    ids.forEach(function(id) {
+      this.fetchItem(id, addItem)
+    })
+    function addItem(item) {
+      items.push(item)
+      if (items.length >= ids.length) {
+        cb(items)
+      }
+    }
+  }
+
   componentDidMount() {
-    currentTime = Date.now();
     this._genRows('top');
   }
 
