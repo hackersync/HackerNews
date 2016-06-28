@@ -8,6 +8,7 @@ import Time from '../utils/time.js';
 import {
   StyleSheet,
   Text,
+  TouchableHighlight,
   View
 } from 'react-native';
 
@@ -27,25 +28,45 @@ export class Post extends Component {
   render() {
     return (
       <View style={styles.listItem}>
-        <View style={styles.scoreContainer}>
+        <View style={[
+          styles.scoreContainer,
+          this.state.data.type == 'job' ? {borderRightColor: 'green'} : {}
+        ]}>
           <Text style={styles.score}>
             {this.state.data.score}
           </Text>
         </View>
         <View style={styles.post}>
-          <Text style={styles.title}>
-            {this.state.data.title}
-          </Text>
+          <View>
+            <Text style={styles.title}>
+              {this.state.data.title}
+            </Text>
+          </View>
           <View style={styles.postData}>
-            <Text style={[styles.postInfoItem, styles.comments]}>
-              {this.state.data.descendants} comments
-            </Text>
-            <Text style={styles.infoDivider}> • </Text>
-            <Text style={styles.postInfoItem}>submitted by </Text>
-            <Text style={[styles.postInfoItem, styles.author]}>
-              {this.state.data.by}
-            </Text>
-            <Text style={styles.postInfoItem}> {this.state.timeAgo}</Text>
+            {this.state.data.descendants != null
+              ? (<View style={{flexDirection: 'row'}}>
+                  <Text style={[styles.info, styles.comments]}>
+                    {this.state.data.descendants} comments
+                  </Text>
+                  <Text style={styles.infoDivider}> • </Text>
+                </View>)
+              : null}
+            {this.state.data.type == 'job'
+              ? (<View style={{flexDirection: 'row'}}>
+                  <Text style={styles.job}>
+                    [Job]
+                  </Text>
+                  <Text style={styles.infoDivider}> • </Text>
+                </View>)
+              : null}
+            <View>
+              <Text style={[styles.info, styles.author]}>
+                {this.state.data.by}
+              </Text>
+            </View>
+            <View>
+              <Text style={styles.info}> submitted {this.state.timeAgo}</Text>
+            </View>
           </View>
         </View>
       </View>
@@ -57,9 +78,9 @@ const styles = StyleSheet.create({
   listItem: {
     padding: 10,
     paddingLeft: 10,
-    paddingRight: 10,
-    marginTop: 10,
-    marginBottom: 10,
+    paddingRight: 20,
+    marginTop: 5,
+    marginBottom: 5,
     flexDirection: 'row',
   },
   infoDivider: {
@@ -76,12 +97,17 @@ const styles = StyleSheet.create({
     marginRight: 10,
     alignItems: 'flex-end',
     justifyContent: 'center',
-    borderRightColor: 'white',
-    borderRightWidth: 2,
+    borderRightColor: 'orange',
+    borderRightWidth: 4,
   },
   score: {
     fontWeight: 'bold',
-    color: 'gray',
+    color: 'black',
+    fontSize: 16
+  },
+  job: {
+    color: 'green',
+    fontSize: 10,
   },
   title: {
     fontSize: 12,
@@ -95,7 +121,7 @@ const styles = StyleSheet.create({
   author: {
     color: '#cc8400',
   },
-  postInfoItem: {
+  info: {
     color: 'gray',
     fontSize: 10,
   }

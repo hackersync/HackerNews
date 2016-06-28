@@ -3,6 +3,7 @@
 */
 
 import React, { Component } from 'react';
+import PostList from './postlist.js';
 import {
   StyleSheet,
   Text,
@@ -14,13 +15,13 @@ export class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      headers: ['top', 'new', 'comments', 'show', 'ask', 'jobs'],
+      headers: ['top', 'new', 'best', 'show', 'ask', 'jobs'],
       selected: 'top',
     }
   }
 
   _handleSelection(header) {
-    console.log('switch to', header);
+    PostList.populateList(header);
     this.setState({
       selected: header,
     });
@@ -31,7 +32,9 @@ export class Header extends Component {
     let headerElements = [];
     headers.forEach(header => {
       let element = (
-        <TouchableHighlight key={header} onPress={this._handleSelection.bind(this, header)}>
+        <TouchableHighlight
+          key={header}
+          onPress={this._handleSelection.bind(this, header)}>
           <Text
             style={[
               styles.carouselText,
@@ -48,7 +51,7 @@ export class Header extends Component {
     return (
       <View style={[styles.header, {width: this.props.windowWidth}]}>
         <View style={[styles.title, {width: this.props.windowWidth}]}>
-          <Text style={styles.headerText}>
+          <Text style={styles.titleText}>
             Hacker News
           </Text>
         </View>
@@ -67,10 +70,10 @@ const styles = StyleSheet.create({
     top: 0,
     alignItems: 'center',
   },
-  headerText: {
-    fontSize: 24,
+  titleText: {
+    fontSize: 28,
     color: 'white',
-    fontFamily: 'menlo',
+    fontFamily: 'thonburi',
     alignSelf: 'center',
   },
   title: {
@@ -79,8 +82,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     borderBottomWidth: 1,
     borderBottomColor: 'white',
-    backgroundColor: 'black',
-    opacity: 0.8,
+    backgroundColor: '#7e7e7e',
   },
   carousel: {
     height: 25,
@@ -94,11 +96,10 @@ const styles = StyleSheet.create({
   carouselText: {
     color:'white',
     fontSize: 12,
-    paddingLeft: 10,
-    paddingRight: 10,
+    paddingLeft: 12,
+    paddingRight: 12,
   },
   selected: {
-    fontWeight: 'bold',
     color: 'orange',
   }
 });
