@@ -17,6 +17,8 @@ import Firebase from 'firebase';
 let FirebaseUrl = new Firebase('hacker-news.firebaseio.com/v0')
 
 let currentTime;
+let itemCounter = 0;
+let itemList = [];
 export class PostList extends Component {
   constructor(props) {
     super(props);
@@ -50,34 +52,36 @@ export class PostList extends Component {
             loading: false,
           });
         });*/
-        this.fetchItems(response, setState);
-        function setState(items) {
-          this.setState({
-            dataSource: this.state.dsObj.cloneWithRows(items),
-            loading: false,
-          });
-        }
+        this.fetchItems(response);
       });
   }
 
-  fetchItem(id, cb) {
-    this.itemsRef.child(id).once('value', function(snapshot) {
-      cb(snapshot.val())
+  updateState(items) {
+    console.log('items', items);
+    this.setState({
+      dataSource: this.state.dsObj.cloneWithRows(items),
+      loading: false,
+    });
+  }
+
+  fetchItem(id, length) {
+    this.itemsRef.child(id).once('value', snapshot => {
+      itemCounter++;
+      itemList.push(snapshot.val());
+      console.log(itemCounter, length);
+      if(itemCounter >= length){
+        console.log('called');
+        this.updateState(itemList);
+      }
     })
   }
 
-  fetchItems(ids, cb) {
+  fetchItems(ids) {
     console.log("entered");
     var items = []
     for(var i = 0; i < ids.length; i++){
       var id = ids[i];
-      this.fetchItem(id, addItem)
-    }
-    function addItem(item) {
-      items.push(item)
-      if (items.length >= ids.length) {
-        cb(items)
-      }
+      this.fetchItem(id, ids.length);
     }
   }
 

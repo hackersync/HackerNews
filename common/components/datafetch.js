@@ -14,15 +14,13 @@ export class DataFetch {
     try {
       const data = await fetch(BASE_URL + storyType + STORIES + JSON_EXTENSION);
       const topStoryIDs = await data.json();
-      /**
       let topStories = [];
       for (let i = 0; i < NUM_STORIES; i++){
         const id = topStoryIDs[i];
-        const item = this.fetchItem(id);
-        topStories.push(item);
+        // const item = this.fetchItem(id);
+        topStories.push(id);
       }
-      return topStories;*/
-      return topStoryIDs;
+      return topStories;
     }
     catch(error) {
       console.error(error);
