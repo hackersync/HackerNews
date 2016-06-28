@@ -25,7 +25,9 @@ export class Homepage extends Component {
   render() {
     return (
       <View>
-        <PostList windowHeight={this.state.height}/>
+        <PostList
+          windowHeight={this.state.height}
+          navigator={this.props.navigator}/>
         <Header windowWidth={this.state.width}/>
       </View>
     );

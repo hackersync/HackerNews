@@ -101,7 +101,6 @@ const styles = StyleSheet.create({
     borderRightWidth: 4,
   },
   score: {
-    fontWeight: 'bold',
     color: 'black',
     fontSize: 16
   },

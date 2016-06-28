@@ -90,7 +90,7 @@ export class PostList extends Component {
       return (
         <View style={styles.loader}>
           <Image
-            source={require('../assets/orange-spinner.gif')}
+            source={require('../assets/homepage-orange-spinner.gif')}
             style={styles.loaderImage}
           />
         </View>
@@ -103,6 +103,10 @@ export class PostList extends Component {
 
   _handleSelection(data) {
     console.log('data', data);
+    this.props.navigator.push({
+      name: 'comments',
+      storyData: data,
+    })
   }
 
   _renderRow(rowData, sectionID, rowID, highlightRow){
@@ -153,9 +157,6 @@ export class PostList extends Component {
 }
 
 const styles = StyleSheet.create({
-  page: {
-    backgroundColor: '#ffebcb',
-  },
   list: {
     marginTop: 90,
   },

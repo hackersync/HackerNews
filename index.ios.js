@@ -4,7 +4,7 @@
  */
 
 import React, { Component } from 'react';
-import Homepage from './common/components/homepage.js';
+import Controller from './common/components/controller.js';
 import { AppRegistry } from 'react-native';
 
 class HackerSync extends Component {
@@ -13,7 +13,7 @@ class HackerSync extends Component {
   }
 
   render() {
-    return <Homepage/>;
+    return <Controller/>;
   }
 }
 

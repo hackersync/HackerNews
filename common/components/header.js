@@ -1,5 +1,6 @@
 /**
-* The header component
+* Component that controls the header of the homepage
+* @flow
 */
 
 import React, { Component } from 'react';
