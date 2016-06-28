@@ -16,7 +16,6 @@ import {
 import Firebase from 'firebase';
 let FirebaseUrl = new Firebase('hacker-news.firebaseio.com/v0')
 
-
 let currentTime;
 export class PostList extends Component {
   constructor(props) {
@@ -70,9 +69,10 @@ export class PostList extends Component {
   fetchItems(ids, cb) {
     console.log("entered");
     var items = []
-    ids.forEach(function(id) {
+    for(var i = 0; i < ids.length; i++){
+      var id = ids[i];
       this.fetchItem(id, addItem)
-    })
+    }
     function addItem(item) {
       items.push(item)
       if (items.length >= ids.length) {
