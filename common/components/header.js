@@ -1,6 +1,5 @@
 /**
-* Component that controls the header of the homepage
-* @flow
+* Component that
 */
 
 import React, { Component } from 'react';
@@ -66,7 +65,7 @@ export class Header extends Component {
 
 const styles = StyleSheet.create({
   header: {
-    height: 90,
+    height: 80,
     position: 'absolute',
     top: 0,
     alignItems: 'center',
@@ -78,12 +77,12 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   title: {
-    height: 60,
+    height: 50,
     padding: 10,
-    paddingTop: 20,
+    paddingTop: 10,
     borderBottomWidth: 1,
     borderBottomColor: 'white',
-    backgroundColor: '#7e7e7e',
+    backgroundColor: '#937d62',
   },
   carousel: {
     height: 25,
@@ -97,11 +96,12 @@ const styles = StyleSheet.create({
   carouselText: {
     color:'white',
     fontSize: 12,
-    paddingLeft: 12,
-    paddingRight: 12,
+    marginLeft: 12,
+    marginRight: 12,
   },
   selected: {
     color: 'orange',
+    fontWeight: 'bold',
   }
 });
 

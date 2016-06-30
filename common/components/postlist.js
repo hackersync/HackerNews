@@ -34,7 +34,6 @@ export class PostList extends Component {
     };
 
     this._renderRow = this._renderRow.bind(this);
-    this.fetchItem = this.fetchItem.bind(this);
     this.itemsRef = FirebaseUrl.child('item/');
   }
 
@@ -95,7 +94,6 @@ export class PostList extends Component {
   }
 
   _handleSelection(data) {
-    console.log('data', data);
     this.props.navigator.push({
       name: 'comments',
       storyData: data,
@@ -151,11 +149,11 @@ export class PostList extends Component {
 
 const styles = StyleSheet.create({
   list: {
-    marginTop: 90,
+    marginTop: 80,
   },
   loader: {
     alignSelf: 'center',
-    marginTop: 90,
+    marginTop: 80,
     padding: 10,
   },
   loaderImage: {

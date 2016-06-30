@@ -19,11 +19,13 @@ export class Controller extends Component {
     switch (route.name) {
       case 'home':
         return (<Homepage
-          navigator={navigator}/>);
+          navigator={navigator}
+          {...this.props}/>);
       case 'comments':
         return (<CommentPage
           navigator={navigator}
-          storyData={route.storyData}/>);
+          storyData={route.storyData}
+          {...this.props}/>);
     }
   }
 
@@ -31,7 +33,7 @@ export class Controller extends Component {
     return (
       <Navigator
         initialRoute={{name: 'home'}}
-        renderScene={this._renderNavScene}
+        renderScene={this._renderNavScene.bind(this)}
         configureScene={(route, routeStack) =>
           Navigator.SceneConfigs.HorizontalSwipeJump}
         sceneStyle={styles.page}/>

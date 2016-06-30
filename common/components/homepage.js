@@ -7,28 +7,24 @@ import React, { Component } from 'react';
 import PostList from './postlist.js';
 import Header from './header.js';
 import {
-  Dimensions,
   StyleSheet,
+  StatusBar,
   View,
 } from 'react-native';
 
 export class Homepage extends Component {
   constructor(props) {
     super(props);
-    let {height, width} = Dimensions.get('window');
-    this.state = {
-      height: height,
-      width: width,
-    }
   }
 
   render() {
     return (
       <View>
+        <StatusBar hidden={true}/>
         <PostList
-          windowHeight={this.state.height}
+          windowHeight={this.props.windowHeight}
           navigator={this.props.navigator}/>
-        <Header windowWidth={this.state.width}/>
+        <Header windowWidth={this.props.windowWidth}/>
       </View>
     );
   }
